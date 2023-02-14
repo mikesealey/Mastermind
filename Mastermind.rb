@@ -1,24 +1,37 @@
-# Mastermind
-require 'colorize'
-require 'colorized_string'
-=begin
-    Computer randomly selects from 6 colours, four times
+$guesses = []
+$win_condition = false
 
-    Red 
-    Orange
-    Yellow
-    Green
-    Light Blue
-    Blue
-    Purple
+def create_code()
+    $computer_code = []
+    4.times do
+        $computer_code.push(rand(6).to_s)
+    end
+    puts "Computer's code is #{$computer_code}" #delete later
+end
 
-=end
+def guess_getter()
+    puts "please enter your guess using numbers 0-5, no spaces"
+    $user_guess = gets.chomp
+    $guesses.push($user_guess.split(""))
 
-#puts ColorizedString.colors
+    print "user_guess = #{$user_guess}\n" #delete later
+    print "guesses = #{$guesses}\n" #delete later
+end
 
-puts "###RED###".colorize(:color => :white, :background => :red)
-puts "###PINK##".colorize(:color => :white, :background => :light_magenta)
-puts "#ORANGE##".colorize(:color => :white, :background => :yellow)
-puts "##GREEN##".colorize(:color => :white, :background => :green)
-puts "##BLUE###".colorize(:color => :white, :background => :blue)
-puts "##PURPLE#".colorize(:color => :white, :background => :magenta)
+def comparison()
+    if $guesses[-1] == $computer_code
+        puts "Winner"
+        $win_condition = true
+    else
+        puts "Not yet!"
+    end
+end
+
+###########################################################
+
+# Actual game takes place
+create_code()
+while $win_condition == false
+    guess_getter()
+    comparison()
+end
